@@ -16,6 +16,8 @@ class BookEntity {
   final num? price;
   @HiveField(5)
   final num? rating;
+  @HiveField(6)
+  final num? ratingsCount;
 
   BookEntity(
       {required this.bookId,
@@ -23,5 +25,7 @@ class BookEntity {
       required this.title,
       required this.authorName,
       required this.price,
-      required this.rating});
+    required this.rating,
+    required this.ratingsCount,
+  });
 }

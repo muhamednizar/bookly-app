@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/utils/styles.dart';
+import '../../../domain/entities/book_entity.dart';
 import 'best_seller_list_view.dart';
 import 'custom_app_bar.dart';
 import 'featured_books_list_view_bloc_builder.dart';
 
 class HomeViewBody extends StatelessWidget {
-  const HomeViewBody({super.key});
-
+  const HomeViewBody({
+    super.key,
+  });
   @override
   Widget build(BuildContext context) {
     return const CustomScrollView(
@@ -18,9 +20,11 @@ class HomeViewBody extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30),
-                child: CustomAppBar(),
+                child: CustomAppBar(
+                  books: [],
+                ),
               ),
-              FeatuedBooksListViewBlocBuilder(),
+              FeaturedBooksListViewBlocConsumer(),
               SizedBox(
                 height: 40,
               ),

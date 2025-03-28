@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../../../home/presentation/views/widgets/best_seller_view_item.dart';
 import '../../../../home/presentation/views/widgets/custom_search_field.dart';
 
 class SearchViewBody extends StatelessWidget {
-  const SearchViewBody({super.key});
-
+  const SearchViewBody({
+    super.key,
+  });
   @override
   Widget build(BuildContext context) {
     return const Padding(
@@ -24,8 +24,9 @@ class SearchViewBody extends StatelessWidget {
 }
 
 class SearchResultListView extends StatelessWidget {
-  const SearchResultListView({super.key});
-
+  const SearchResultListView({
+    super.key,
+  });
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -33,12 +34,11 @@ class SearchResultListView extends StatelessWidget {
       padding: EdgeInsets.zero,
       itemCount: 10,
       itemBuilder: (context, index) {
-        return const Padding(
-          padding: EdgeInsets.symmetric(vertical: 10),
-          child: BookListViewItem(),
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Container(),
         );
       },
     );
-    ;
   }
 }

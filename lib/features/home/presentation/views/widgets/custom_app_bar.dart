@@ -5,10 +5,12 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../core/utils/app_router.dart';
 import '../../../../../core/utils/assets.dart';
+import '../../../domain/entities/book_entity.dart';
 
 class CustomAppBar extends StatelessWidget {
-  const CustomAppBar({super.key});
+  const CustomAppBar({super.key, required this.books});
 
+  final List<BookEntity> books;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -21,7 +23,7 @@ class CustomAppBar extends StatelessWidget {
           const Spacer(),
           IconButton(
               onPressed: () {
-                GoRouter.of(context).push(AppRouter.kSearchView);
+                GoRouter.of(context).push(AppRouter.kSearchView, extra: books);
               },
               icon: const Icon(
                 FontAwesomeIcons.magnifyingGlass,

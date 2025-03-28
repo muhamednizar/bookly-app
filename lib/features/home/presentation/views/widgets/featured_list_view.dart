@@ -1,5 +1,7 @@
+import 'package:bookly_app/core/utils/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../domain/entities/book_entity.dart';
 import '../../manager/featured_books_cubit/featured_books_cubit.dart';
@@ -17,7 +19,6 @@ class FeaturedBooksListView extends StatefulWidget {
 class _FeaturedBooksListViewState extends State<FeaturedBooksListView> {
   late final ScrollController _scrollController;
   var nextPage = 1;
-
   var isLoading = false;
 
   @override
@@ -30,13 +31,11 @@ class _FeaturedBooksListViewState extends State<FeaturedBooksListView> {
   void _scrollListener() async {
     var currentPositions = _scrollController.position.pixels;
     var maxScrollLength = _scrollController.position.maxScrollExtent;
-    if (currentPositions >= 0.7 * maxScrollLength) {
-      if (!isLoading) {
-        isLoading = true;
-        await BlocProvider.of<FeaturedBooksCubit>(context)
-            .fetchFeaturedBooks(pageNumber: nextPage++);
-        isLoading = false;
-      }
+    if (currentPositions >= 0.7 * maxScrollLength && !isLoading) {
+      isLoading = true;
+      await BlocProvider.of<FeaturedBooksCubit>(context)
+          .fetchFeaturedBooks(pageNumber: nextPage++);
+      isLoading = false;
     }
   }
 
@@ -55,10 +54,18 @@ class _FeaturedBooksListViewState extends State<FeaturedBooksListView> {
         itemCount: widget.books.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: CustomBookImage(
-              image: widget.books[index].image ?? '',
+          return GestureDetector(
+            onTap: () {
+              GoRouter.of(context).push(
+                AppRouter.kBookDetailsView,
+                extra: widget.books[index],
+              );
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: CustomBookImage(
+                image: widget.books[index].image ?? '',
+              ),
             ),
           );
         },

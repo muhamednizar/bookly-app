@@ -1,3 +1,4 @@
+import 'package:bookly_app/features/home/presentation/views/widgets/featured_books_list_view_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -6,18 +7,18 @@ import '../../../domain/entities/book_entity.dart';
 import '../../manager/featured_books_cubit/featured_books_cubit.dart';
 import 'featured_list_view.dart';
 
-class FeatuedBooksListViewBlocBuilder extends StatefulWidget {
-  const FeatuedBooksListViewBlocBuilder({
+class FeaturedBooksListViewBlocConsumer extends StatefulWidget {
+  const FeaturedBooksListViewBlocConsumer({
     super.key,
   });
 
   @override
-  State<FeatuedBooksListViewBlocBuilder> createState() =>
+  State<FeaturedBooksListViewBlocConsumer> createState() =>
       _FeaturedBooksListViewBlocBuilderState();
 }
 
 class _FeaturedBooksListViewBlocBuilderState
-    extends State<FeatuedBooksListViewBlocBuilder> {
+    extends State<FeaturedBooksListViewBlocConsumer> {
   List<BookEntity> books = [];
 
   @override
@@ -44,7 +45,7 @@ class _FeaturedBooksListViewBlocBuilderState
         } else if (state is FeaturedBooksFailure) {
           return Text(state.errMessage);
         } else {
-          return const CircularProgressIndicator();
+          return const FeaturedBooksListViewLoadingIndicator();
         }
       },
     );

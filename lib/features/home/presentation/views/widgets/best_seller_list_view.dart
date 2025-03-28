@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
+import '../../../domain/entities/book_entity.dart';
 import 'best_seller_view_item.dart';
 
 class BestSellerListView extends StatelessWidget {
-  const BestSellerListView({super.key});
-
+  const BestSellerListView({
+    super.key,
+  });
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -13,8 +15,8 @@ class BestSellerListView extends StatelessWidget {
       padding: EdgeInsets.zero,
       itemCount: 10,
       itemBuilder: (context, index) {
-        return const Padding(
-          padding: EdgeInsets.symmetric(vertical: 10),
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
           child: BookListViewItem(),
         );
       },

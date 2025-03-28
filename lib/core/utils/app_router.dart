@@ -4,6 +4,8 @@ import 'package:bookly_app/features/search/presentation/views/search_view.dart';
 import 'package:bookly_app/features/splash/presentation/views/splash_view.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/home/domain/entities/book_entity.dart';
+
 abstract class AppRouter {
   static const String kHomeView = '/homeView';
   static const String kBookDetailsView = '/bookdetailsView';
@@ -15,17 +17,24 @@ abstract class AppRouter {
         builder: (context, state) => const SplashView(),
       ),
       GoRoute(
-        path: kHomeView,
-        builder: (context, state) => const HomeView(),
+        path: AppRouter.kHomeView,
+        builder: (context, state) => HomeView(),
       ),
       GoRoute(
-        path: kBookDetailsView,
-        builder: (context, state) => const BookDetailsView(),
+        path: AppRouter.kBookDetailsView,
+        builder: (context, state) {
+          final BookEntity book =
+              state.extra as BookEntity; // استلام الـ BookEntity
+          return BookDetailsView(book: book); // تمرير الـ BookEntity فقط
+        },
       ),
       GoRoute(
-        path: kSearchView,
-        builder: (context, state) => const SearchView(),
-      ),
+          path: AppRouter.kSearchView,
+          builder: (context, state) {
+            final BookEntity book =
+                state.extra as BookEntity; // استلام الـ BookEntity
+            return SearchView(book: book); // تمرير الـ BookEntity فقط
+          }),
     ],
   );
 }
