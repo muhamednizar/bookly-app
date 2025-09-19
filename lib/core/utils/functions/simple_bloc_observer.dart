@@ -9,3 +9,4 @@ class SimpleBlocObserver extends BlocObserver {
     super.onChange(bloc, change);
   }
 }
+

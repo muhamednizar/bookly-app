@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -11,7 +12,9 @@ import 'book_rating.dart';
 class BookListViewItem extends StatelessWidget {
   const BookListViewItem({
     super.key,
+    required this.books,
   });
+  final BookEntity? books;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -19,7 +22,7 @@ class BookListViewItem extends StatelessWidget {
         GoRouter.of(context).push(AppRouter.kBookDetailsView);
       },
       child: SizedBox(
-        height: 120,
+        height: 170,
         child: Row(
           children: [
             AspectRatio(
@@ -30,11 +33,11 @@ class BookListViewItem extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: Colors.red,
                     borderRadius: BorderRadius.circular(16),
-                    image: const DecorationImage(
+                    image: DecorationImage(
                         fit: BoxFit.fill,
-                        image: AssetImage(
-                          AssetsData.book,
-                        ))),
+                        image: CachedNetworkImageProvider(
+                          books?.image ?? '',
+                        )))
               ),
             ),
             const SizedBox(
@@ -47,7 +50,7 @@ class BookListViewItem extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * .5,
                     child: Text(
-                      'Harry Potter and the Goblet of Fire',
+                      books?.title ?? '',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: Styles.textStyle20
@@ -58,7 +61,7 @@ class BookListViewItem extends StatelessWidget {
                     height: 3,
                   ),
                   Text(
-                    'J.K. Rowling',
+                    books?.authorName ?? '',
                     style: Styles.textStyle14
                         .copyWith(fontWeight: FontWeight.w500),
                   ),
@@ -68,14 +71,18 @@ class BookListViewItem extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        '19.99 €',
+                        books?.price.toString() ?? '',
                         style: Styles.textStyle20
                             .copyWith(fontWeight: FontWeight.bold),
                       ),
                       const Spacer(),
-                      BookRating(),
+                      BookRating(book: books),
                     ],
                   ),
+                  const SizedBox(
+                    height: 3,
+                  ),
+
                 ],
               ),
             )

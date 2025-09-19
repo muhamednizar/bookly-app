@@ -36,6 +36,7 @@ class _FeaturedBooksListViewBlocBuilderState
         }
       },
       builder: (context, state) {
+      
         if (state is FeaturedBooksSuccess ||
             state is FeaturedBooksPaginationLoading ||
             state is FeaturedBooksPaginationFailure) {
