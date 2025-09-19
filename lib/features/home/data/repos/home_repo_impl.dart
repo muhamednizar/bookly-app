@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-
 import '../../../../core/errors/failure.dart';
 import '../../domain/entities/book_entity.dart';
 import '../../domain/repos/home_repo.dart';
@@ -35,15 +34,17 @@ class HomeRepoImpl extends HomeRepo {
     }
   }
 
+
+
   @override
-  Future<Either<Failure, List<BookEntity>>> fetchNewestBooks() async {
+  Future<Either<Failure, List<BookEntity>>> fetchNewestBooks({int pageNumber = 0}) async {
     try {
       List<BookEntity> books;
-      books = homeLocalDataSource.fetchNewestBooks();
+      books = homeLocalDataSource.fetchNewestBooks(pageNumber: pageNumber);
       if (books.isNotEmpty) {
         return right(books);
       }
-      books = await homeRemoteDataSource.fetchNewestBooks();
+      books = await homeRemoteDataSource.fetchNewestBooks(pageNumber: pageNumber);
       return right(books);
     } catch (e) {
       if (e is DioException) {

@@ -23,19 +23,10 @@ class BookRating extends StatelessWidget {
         ),
         const SizedBox(width: 6.3),
         Text(
-          book?.rating != null ? book!.rating!.toString() : 'No Ratings',
+          book?.rating.toString() ?? '0.0',
           style: Styles.textStyle16,
         ),
         const SizedBox(width: 6.3),
-        Opacity(
-          opacity: .5,
-          child: Text(
-            book?.ratingsCount != null
-                ? '(book!.ratingsCount!.toString())'
-                : '(0)',
-            style: Styles.textStyle14,
-          ),
-        )
       ],
     );
   }
