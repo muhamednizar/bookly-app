@@ -18,8 +18,14 @@ class BookEntity {
   final num? rating;
   @HiveField(6)
   final num? ratingsCount;
+  @HiveField(7)
+  final String? infoLink;
+  @HiveField(8)
+  final String? previewLink;
+  @HiveField(9)
+  final String? webReaderLink;
 
-  BookEntity(
+  BookEntity( 
       {required this.bookId,
       required this.image,
       required this.title,
@@ -27,5 +33,8 @@ class BookEntity {
       required this.price,
     required this.rating,
     required this.ratingsCount,
+    required this.infoLink,
+    required this.previewLink,
+    required this.webReaderLink,
   });
 }

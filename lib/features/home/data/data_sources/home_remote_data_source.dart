@@ -7,6 +7,7 @@ import '../models/book_model/book_model.dart';
 abstract class HomeRemoteDataSource {
   Future<List<BookEntity>> fetchFeaturedBooks({int pageNumber = 0});
   Future<List<BookEntity>> fetchNewestBooks({int pageNumber = 0 });
+  Future<List<BookEntity>> fetchSimilarBooks({required String bookId});
 }
 
 class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
@@ -29,6 +30,28 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
         endpoint: 'volumes?Filtering=free-ebooks&Sorting=newest&q=programming&startIndex=${pageNumber * 10 }');
     List<BookEntity> books = getBooksList(data);
     saveBooksData(books, kNewestBox);
+    return books;
+  }
+
+  @override
+  Future<List<BookEntity>> fetchSimilarBooks({required String bookId}) async {
+    // أولاً نحصل على تفاصيل الكتاب الحالي
+    var bookData = await apiService.get(endpoint: 'volumes/$bookId');
+    var currentBook = BookModel.fromJson(bookData);
+    
+    // نستخدم عنوان الكتاب أو المؤلف للبحث عن كتب مشابهة
+    String searchQuery = currentBook.volumeInfo?.title ?? 'programming';
+    if (currentBook.volumeInfo?.authors?.isNotEmpty == true) {
+      searchQuery = '${currentBook.volumeInfo!.authors!.first} ${currentBook.volumeInfo!.title}';
+    }
+    
+    var data = await apiService.get(
+        endpoint: 'volumes?Filtering=free-ebooks&q=${Uri.encodeComponent(searchQuery)}&maxResults=10');
+    List<BookEntity> books = getBooksList(data);
+    
+    // نتأكد من إزالة الكتاب الحالي من النتائج
+    books.removeWhere((book) => book.bookId == bookId);
+    
     return books;
   }
 

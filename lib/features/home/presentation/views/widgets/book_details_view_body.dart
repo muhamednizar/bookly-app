@@ -26,7 +26,7 @@ class BookDetailsViewBody extends StatelessWidget {
                 child: BookDetailsSection(book: book), // مباشرة تمرير الكتاب
               ),
               const SizedBox(height: 50),
-              const SimilarBooksSection(),
+              SimilarBooksSection(bookId: book.bookId),
             ],
           ),
         ),
