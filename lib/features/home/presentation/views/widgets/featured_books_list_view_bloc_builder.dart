@@ -1,7 +1,6 @@
 import 'package:bookly_app/features/home/presentation/views/widgets/featured_books_list_view_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../../core/utils/functions/buildErrorWidget.dart';
 import '../../../domain/entities/book_entity.dart';
 import '../../manager/featured_books_cubit/featured_books_cubit.dart';
