@@ -14,11 +14,9 @@ class BooksAction extends StatelessWidget {
     if (book.webReaderLink != null && book.webReaderLink!.isNotEmpty) {
       return book.webReaderLink;
     }
-    // ثم previewLink للعرض المسبق
     if (book.previewLink != null && book.previewLink!.isNotEmpty) {
       return book.previewLink;
     }
-    // أخيراً infoLink للمعلومات العامة
     if (book.infoLink != null && book.infoLink!.isNotEmpty) {
       return book.infoLink;
     }

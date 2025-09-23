@@ -13,4 +13,7 @@ abstract class HomeRepo {
 
   Future<Either<Failure, List<BookEntity>>> fetchSimilarBooks(
       {required String bookId});
+
+  Future<Either<Failure, List<BookEntity>>> searchBooks(
+      {required String query});
 }

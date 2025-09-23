@@ -8,6 +8,7 @@ abstract class HomeRemoteDataSource {
   Future<List<BookEntity>> fetchFeaturedBooks({int pageNumber = 0});
   Future<List<BookEntity>> fetchNewestBooks({int pageNumber = 0 });
   Future<List<BookEntity>> fetchSimilarBooks({required String bookId});
+  Future<List<BookEntity>> searchBooks({required String query});
 }
 
 class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
@@ -56,10 +57,23 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
   }
 
   List<BookEntity> getBooksList(Map<String, dynamic> data) {
+    final items = data['items'];
+    if (items == null || items is! List) {
+      return <BookEntity>[];
+    }
     List<BookEntity> books = [];
-    for (var bookMap in data['items']) {
+    for (var bookMap in items) {
       books.add(BookModel.fromJson(bookMap));
     }
     return books;
   }
+  
+  @override
+  Future<List<BookEntity>> searchBooks({required String query}) async {
+    var data = await apiService.get(
+      endpoint: 'volumes?Filtering=free-ebooks&q=${Uri.encodeComponent(query)}&maxResults=10');
+    List<BookEntity> books = getBooksList(data);
+    return books;
+  }
+  
 }
