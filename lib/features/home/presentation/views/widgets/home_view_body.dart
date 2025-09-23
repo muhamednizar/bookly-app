@@ -1,3 +1,4 @@
+import 'package:bookly_app/features/home/domain/entities/book_entity.dart';
 import 'package:bookly_app/features/home/presentation/manager/newest_books_cubit/newest_books_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +21,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   late final ScrollController _scrollController;
   var nextPage = 1;
   var isLoading = false;
-
+  List<BookEntity> books = [];
   @override
   void initState() {
     super.initState();
@@ -48,7 +49,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   Widget build(BuildContext context) {
     return CustomScrollView(
       controller: _scrollController,
-      slivers: const [
+      slivers:  [
         SliverToBoxAdapter(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,27 +57,27 @@ class _HomeViewBodyState extends State<HomeViewBody> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30),
                 child: CustomAppBar(
-                  books: [],
+                books: books,
                 ),
               ),
-              FeaturedBooksListViewBlocConsumer(),
-              SizedBox(
+              const FeaturedBooksListViewBlocConsumer(),
+              const SizedBox(
                 height: 40,
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 30),
                 child: Text(
                   'Best Seller',
                   style: Styles.textStyle18,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
             ],
           ),
         ),
-        SliverToBoxAdapter(
+        const SliverToBoxAdapter(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 30),
             child: BestSellerListViewBlocConsumer(),

@@ -32,9 +32,7 @@ abstract class AppRouter {
       GoRoute(
           path: AppRouter.kSearchView,
           builder: (context, state) {
-            final BookEntity book =
-                state.extra as BookEntity; // استلام الـ BookEntity
-            return SearchView(book: book); // تمرير الـ BookEntity فقط
+            return const SearchView();
           }),
     ],
   );

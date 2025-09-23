@@ -1,16 +1,32 @@
 import 'package:bookly_app/features/search/presentation/views/widget/serach_view_body.dart';
 import 'package:flutter/material.dart';
 
-import '../../../home/domain/entities/book_entity.dart';
+class SearchView extends StatefulWidget {
+  const SearchView({super.key});
 
-class SearchView extends StatelessWidget {
-  const SearchView({super.key, required this.book});
+  @override
+  State<SearchView> createState() => _SearchViewState();
+}
 
-  final BookEntity book;
+class _SearchViewState extends State<SearchView> {
+  late final TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SafeArea(child: SearchViewBody()),
+    return Scaffold(
+      body: SafeArea(child: SearchViewBody(controller: _controller)),
     );
   }
 }
